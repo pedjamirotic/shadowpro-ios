@@ -7,7 +7,7 @@ class InstantOnboardingView: UIView {
     let nameTextField: UITextField
     let hintLabel: UILabel
     private let hintLabelWrapper: UIView
-    let privacyButton: UIButton
+    // let privacyButton: UIButton
     private let privacyButtonWrapper: UIView
     let agreeButton: UIButton
     let otherOptionsButton: UIButton
@@ -55,16 +55,17 @@ class InstantOnboardingView: UIView {
         agreeButton.layer.cornerRadius = 5
         agreeButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
 
-        privacyButton = UIButton(type: .system)
-        privacyButton.translatesAutoresizingMaskIntoConstraints = false
+       // privacyButton = UIButton(type: .system)
+       // privacyButton.translatesAutoresizingMaskIntoConstraints = false
         privacyButtonWrapper = UIView()
         privacyButtonWrapper.translatesAutoresizingMaskIntoConstraints = false
-        privacyButtonWrapper.addSubview(privacyButton)
+        // privacyButtonWrapper.addSubview(privacyButton)
 
         otherOptionsButton = UIButton(type: .system)
         otherOptionsButton.setTitle(String.localized("instant_onboarding_show_more_instances"), for: .normal)
         otherOptionsButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         otherOptionsButton.translatesAutoresizingMaskIntoConstraints = false
+        otherOptionsButton.setTitleColor(.systemBlue, for: .normal)
 
         contentStackView = UIStackView(arrangedSubviews: [imageButton, nameTextField, hintLabelWrapper, privacyButtonWrapper, agreeButton, otherOptionsButton])
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +92,7 @@ class InstantOnboardingView: UIView {
 
         setupConstraints()
         validateTextfield(text: nameTextField.text)
-        updateContent(with: customProvider)
+     //   updateContent(with: customProvider)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -116,10 +117,10 @@ class InstantOnboardingView: UIView {
             imageButton.heightAnchor.constraint(equalToConstant: 100),
 
             privacyButtonWrapper.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
-            privacyButton.topAnchor.constraint(equalTo: privacyButtonWrapper.topAnchor),
-            privacyButton.leadingAnchor.constraint(equalTo: privacyButtonWrapper.leadingAnchor),
-            privacyButtonWrapper.trailingAnchor.constraint(greaterThanOrEqualTo: privacyButton.trailingAnchor),
-            privacyButtonWrapper.bottomAnchor.constraint(equalTo: privacyButton.bottomAnchor),
+//            privacyButton.topAnchor.constraint(equalTo: privacyButtonWrapper.topAnchor),
+//            privacyButton.leadingAnchor.constraint(equalTo: privacyButtonWrapper.leadingAnchor),
+//            privacyButtonWrapper.trailingAnchor.constraint(greaterThanOrEqualTo: privacyButton.trailingAnchor),
+//            privacyButtonWrapper.bottomAnchor.constraint(equalTo: privacyButton.bottomAnchor),
 
             hintLabelWrapper.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
             hintLabel.topAnchor.constraint(equalTo: hintLabelWrapper.topAnchor),
@@ -142,19 +143,18 @@ class InstantOnboardingView: UIView {
         agreeButton.isEnabled = buttonShouldBeEnabled
 
         if buttonShouldBeEnabled {
-            agreeButton.backgroundColor = .systemBlue
-            otherOptionsButton.setTitleColor(.systemBlue, for: .normal)
+            agreeButton.backgroundColor = .black
         } else {
             agreeButton.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
-            otherOptionsButton.setTitleColor(UIColor.systemGray.withAlphaComponent(0.5), for: .normal)
+        
         }
     }
 
-    func updateContent(with customProvider: String?) {
-        if let customProvider {
-            privacyButton.setTitle(String.localized(stringID: "instant_onboarding_agree_instance", parameter: customProvider), for: .normal)
-        } else {
-            privacyButton.setTitle(String.localized(stringID: "instant_onboarding_agree_default2", parameter: InstantOnboardingViewController.defaultChatmailDomain), for: .normal)
-        }
-    }
+//    func updateContent(with customProvider: String?) {
+//        if let customProvider {
+//            privacyButton.setTitle(String.localized(stringID: "instant_onboarding_agree_instance", parameter: customProvider), for: .normal)
+//        } else {
+//            privacyButton.setTitle(String.localized(stringID: "instant_onboarding_agree_default2", parameter: InstantOnboardingViewController.defaultChatmailDomain), for: .normal)
+//        }
+//    }
 }

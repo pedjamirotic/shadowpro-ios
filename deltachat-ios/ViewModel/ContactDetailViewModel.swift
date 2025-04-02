@@ -23,7 +23,7 @@ class ContactDetailViewModel {
 
     enum ChatAction {
         case addToHomescreen
-        case archiveChat
+     //   case archiveChat
         case showEncrInfo
         case blockContact
         case clearChat
@@ -101,7 +101,7 @@ class ContactDetailViewModel {
                 chatOptions.append(.shareContact)
             }
 
-            chatActions = [.archiveChat]
+            chatActions = []
             if #available(iOS 17, *) {
                 chatActions.append(.addToHomescreen)
             }
@@ -211,18 +211,18 @@ class ContactDetailViewModel {
     }
 
     // returns true if chat is archived after action
-    func toggleArchiveChat() -> Bool {
-        if chatId == 0 {
-            safe_fatalError("there is no chatId - you are probably are calling this from ContactDetail - this should be only called from ChatDetail")
-            return false
-        }
-        let isArchivedBefore = chatIsArchived
-        if !isArchivedBefore {
-            NotificationManager.removeNotificationsForChat(dcContext: context, chatId: chatId)
-        }
-        context.archiveChat(chatId: chatId, archive: !isArchivedBefore)
-        return chatIsArchived
-    }
+//    func toggleArchiveChat() -> Bool {
+//        if chatId == 0 {
+//            safe_fatalError("there is no chatId - you are probably are calling this from ContactDetail - this should be only called from ChatDetail")
+//            return false
+//        }
+//        let isArchivedBefore = chatIsArchived
+//        if !isArchivedBefore {
+//            NotificationManager.removeNotificationsForChat(dcContext: context, chatId: chatId)
+//        }
+//        context.archiveChat(chatId: chatId, archive: !isArchivedBefore)
+//        return chatIsArchived
+//    }
 
     public func blockContact() {
         context.blockContact(id: contact.id)

@@ -13,7 +13,7 @@ internal final class ChatsAndMediaViewController: UITableViewController {
     private enum CellTags: Int {
         case blockedContacts
         case receiptConfirmation
-        case exportBackup
+      //  case exportBackup
         case autodel
         case mediaQuality
         case downloadOnDemand
@@ -86,12 +86,12 @@ internal final class ChatsAndMediaViewController: UITableViewController {
         return cell
     }()
 
-    private lazy var exportBackupCell: ActionCell = {
-        let cell = ActionCell()
-        cell.tag = CellTags.exportBackup.rawValue
-        cell.actionTitle = String.localized("export_backup_desktop")
-        return cell
-    }()
+//    private lazy var exportBackupCell: ActionCell = {
+//        let cell = ActionCell()
+//        cell.tag = CellTags.exportBackup.rawValue
+//        cell.actionTitle = String.localized("export_backup_desktop")
+//        return cell
+//    }()
 
     private lazy var sections: [SectionConfigs] = {
         let preferencesSection = SectionConfigs(
@@ -100,12 +100,12 @@ internal final class ChatsAndMediaViewController: UITableViewController {
             cells: [blockedContactsCell, mediaQualityCell, downloadOnDemandCell,
                     autodelCell, receiptConfirmationCell]
         )
-        let exportBackupSection = SectionConfigs(
-            headerTitle: nil,
-            footerTitle: String.localized("pref_backup_explain"),
-            cells: [exportBackupCell]
-        )
-        return [preferencesSection, exportBackupSection]
+//        let exportBackupSection = SectionConfigs(
+//            headerTitle: nil,
+//            footerTitle: String.localized("pref_backup_explain"),
+//            cells: [exportBackupCell]
+//        )
+        return [preferencesSection]
     }()
 
     init(dcAccounts: DcAccounts) {
@@ -157,10 +157,10 @@ internal final class ChatsAndMediaViewController: UITableViewController {
         case .mediaQuality: showMediaQuality()
         case .downloadOnDemand: showDownloadOnDemand()
         case .receiptConfirmation: break
-        case .exportBackup:
-            Utils.authenticateDeviceOwner(reason: String.localized("pref_backup_explain")) { [weak self] in
-                self?.createBackup()
-            }
+//        case .exportBackup:
+//            Utils.authenticateDeviceOwner(reason: String.localized("pref_backup_explain")) { [weak self] in
+//                self?.createBackup()
+//            }
         }
     }
 

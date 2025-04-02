@@ -104,17 +104,17 @@ class QrPageController: UIPageViewController {
 
     private func moreButtonMenu() -> UIMenu {
         var actions = [UIMenuElement]()
-        if qrSegmentControl.selectedSegmentIndex == 0 {
-            actions.append(UIAction(title: String.localized("menu_share"), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] _ in
-                self?.share()
-            })
-            actions.append(UIAction(title: String.localized("menu_copy_to_clipboard"), image: UIImage(systemName: "document.on.document")) { [weak self] _ in
-                self?.copyToClipboard()
-            })
-        }
-        actions.append(UIAction(title: String.localized("paste_from_clipboard"), image: UIImage(systemName: "doc.on.clipboard")) { [weak self] _ in
-            self?.pasteFromClipboard()
-        })
+//        if qrSegmentControl.selectedSegmentIndex == 0 {
+//            actions.append(UIAction(title: String.localized("menu_share"), image: UIImage(systemName: "square.and.arrow.up")) { [weak self] _ in
+//                self?.share()
+//            })
+//            actions.append(UIAction(title: String.localized("menu_copy_to_clipboard"), image: UIImage(systemName: "document.on.document")) { [weak self] _ in
+//                self?.copyToClipboard()
+//            })
+       // }
+//        actions.append(UIAction(title: String.localized("paste_from_clipboard"), image: UIImage(systemName: "doc.on.clipboard")) { [weak self] _ in
+//            self?.pasteFromClipboard()
+//        })
         if dcContext.isChatmail == false {
             actions.append(UIAction(title: String.localized("menu_new_classic_contact"), image: UIImage(systemName: "highlighter")) { [weak self] _ in
                 guard let self else { return }

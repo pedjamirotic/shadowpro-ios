@@ -349,7 +349,7 @@ class WelcomeContentView: UIView {
     }()
 
     private lazy var buttonStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [signUpButton, logInButton])
+        let stack = UIStackView(arrangedSubviews: [signUpButton])
         stack.axis = .vertical
         stack.spacing = 15
         return stack
@@ -361,7 +361,7 @@ class WelcomeContentView: UIView {
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .black
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
@@ -369,15 +369,15 @@ class WelcomeContentView: UIView {
         return button
     }()
 
-    private lazy var logInButton: UIButton = {
-        let button = UIButton()
-        let title = String.localized("onboarding_alternative_logins")
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
-        button.setTitle(title, for: .normal)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        button.addTarget(self, action: #selector(logInButtonPressed(_:)), for: .touchUpInside)
-        return button
-    }()
+//    private lazy var logInButton: UIButton = {
+//        let button = UIButton()
+//        let title = String.localized("onboarding_alternative_logins")
+//        button.setTitleColor(UIColor.systemBlue, for: .normal)
+//        button.setTitle(title, for: .normal)
+//        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+//        button.addTarget(self, action: #selector(logInButtonPressed(_:)), for: .touchUpInside)
+//        return button
+//    }()
 
     private let defaultSpacing: CGFloat = 20
 

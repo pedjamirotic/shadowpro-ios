@@ -791,10 +791,10 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
             if let parent = message.parent {
                 showWebxdcViewFor(message: parent, href: message.getWebxdcHref())
             }
-        case (_, DC_INFO_PROTECTION_ENABLED):
-            showProtectionEnabledDialog()
-        case (_, DC_INFO_PROTECTION_DISABLED):
-            showProtectionBrokenDialog()
+//        case (_, DC_INFO_PROTECTION_ENABLED):
+//            showProtectionEnabledDialog()
+//        case (_, DC_INFO_PROTECTION_DISABLED):
+//            showProtectionBrokenDialog()
         case (_, DC_INFO_INVALID_UNENCRYPTED_MAIL):
             showInvalidUnencryptedDialog()
         default:
@@ -1187,7 +1187,7 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
         ]))
 
         actions.append(action("files", "folder", self.showDocumentLibrary))
-        actions.append(action("webxdc_apps", "square.grid.2x2", showAppPicker))
+        // actions.append(action("webxdc_apps", "square.grid.2x2", showAppPicker))
         actions.append(action("voice_message", "mic", showVoiceMessageRecorder))
         if let config = dcContext.getConfig("webrtc_instance"), !config.isEmpty {
             let videoChatImage = if #available(iOS 17, *) { "video.bubble" } else { "video" }
@@ -1390,14 +1390,14 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
         navigationController?.present(alert, animated: true, completion: nil)
     }
 
-    private func showProtectionEnabledDialog() {
-        let alert = UIAlertController(title: String.localized("chat_protection_enabled_explanation"), message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: String.localized("learn_more"), style: .default, handler: { _ in
-            self.navigationController?.pushViewController(HelpViewController(dcContext: self.dcContext, fragment: "#e2eeguarantee"), animated: true)
-        }))
-        alert.addAction(UIAlertAction(title: String.localized("ok"), style: .default, handler: nil))
-        navigationController?.present(alert, animated: true, completion: nil)
-    }
+//    private func showProtectionEnabledDialog() {
+//        let alert = UIAlertController(title: String.localized("chat_protection_enabled_explanation"), message: nil, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: String.localized("learn_more"), style: .default, handler: { _ in
+//            self.navigationController?.pushViewController(HelpViewController(dcContext: self.dcContext, fragment: "#e2eeguarantee"), animated: true)
+//        }))
+//        alert.addAction(UIAlertAction(title: String.localized("ok"), style: .default, handler: nil))
+//        navigationController?.present(alert, animated: true, completion: nil)
+//    }
 
     private func showInvalidUnencryptedDialog() {
         let alert = UIAlertController(title: String.localized("invalid_unencrypted_explanation"), message: nil, preferredStyle: .alert)

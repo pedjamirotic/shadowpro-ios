@@ -18,7 +18,7 @@ class GroupChatDetailViewController: UIViewController {
     }
 
     enum ChatAction {
-        case archiveChat
+//        case archiveChat
         case cloneChat
         case leaveGroup
         case clearChat
@@ -296,7 +296,7 @@ class GroupChatDetailViewController: UIViewController {
             self.chatOptions.append(.locations)
         }
 
-        self.chatActions = [.archiveChat]
+        self.chatActions = []
         if #available(iOS 17.0, *) {
             self.chatActions.append(.addToHomescreen)
         }
@@ -573,8 +573,8 @@ extension GroupChatDetailViewController: UITableViewDelegate, UITableViewDataSou
             return contactCell
         case .chatActions:
             switch chatActions[row] {
-            case .archiveChat:
-                return archiveChatCell
+//            case .archiveChat:
+//                return archiveChatCell
             case .cloneChat:
                 return cloneChatCell
             case .leaveGroup:
@@ -622,9 +622,9 @@ extension GroupChatDetailViewController: UITableViewDelegate, UITableViewDataSou
             }
         case .chatActions:
             switch chatActions[row] {
-            case .archiveChat:
-                tableView.deselectRow(at: indexPath, animated: true) // animated as no other elements pop up
-                toggleArchiveChat()
+//            case .archiveChat:
+//                tableView.deselectRow(at: indexPath, animated: true) // animated as no other elements pop up
+//                toggleArchiveChat()
             case .cloneChat:
                 tableView.deselectRow(at: indexPath, animated: false)
                 navigationController?.pushViewController(NewGroupController(dcContext: dcContext, createBroadcast: chat.isBroadcast, templateChatId: chatId), animated: true)

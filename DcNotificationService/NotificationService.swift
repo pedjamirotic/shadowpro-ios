@@ -154,16 +154,16 @@ class NotificationService: UNNotificationServiceExtension {
     }
 
     private func silenceNotification() -> UNMutableNotificationContent {
-        if #available(iOS 13.3, *) {
-            // do not show anything; requires `com.apple.developer.usernotifications.filtering` entitlement
-            return UNMutableNotificationContent()
-        } else {
+//        if #available(iOS 13.3, *) {
+//            // do not show anything; requires `com.apple.developer.usernotifications.filtering` entitlement
+//            return UNMutableNotificationContent()
+//        } else {
             // do not play a sound at least
             let content = UNMutableNotificationContent()
             content.sound = nil
             content.title = String.localized("new_messages")
             content.body = String.localized("videochat_tap_to_open")
             return content
-        }
+       // }
     }
 }

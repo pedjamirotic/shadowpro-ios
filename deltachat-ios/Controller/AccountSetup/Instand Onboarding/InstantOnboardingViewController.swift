@@ -89,7 +89,7 @@ class InstantOnboardingViewController: UIViewController {
         let contentView = InstantOnboardingView(avatarImage: dcContext.getSelfAvatarImage(), name: dcContext.displayname, customProvider: customProvider)
         contentView.agreeButton.addTarget(self, action: #selector(InstantOnboardingViewController.acceptAndCreateButtonPressed), for: .touchUpInside)
         contentView.imageButton.addTarget(self, action: #selector(InstantOnboardingViewController.onAvatarTapped), for: .touchUpInside)
-        contentView.privacyButton.addTarget(self, action: #selector(InstantOnboardingViewController.showPrivacy(_:)), for: .touchUpInside)
+//        contentView.privacyButton.addTarget(self, action: #selector(InstantOnboardingViewController.showPrivacy(_:)), for: .touchUpInside)
         contentView.otherOptionsButton.addTarget(self, action: #selector(InstantOnboardingViewController.showOtherOptions(_:)), for: .touchUpInside)
 
         NotificationCenter.default.addObserver(
@@ -172,30 +172,30 @@ class InstantOnboardingViewController: UIViewController {
 
     @objc private func showOtherOptions(_ sender: UIButton) {
         let alertController = UIAlertController(title: String.localized("instant_onboarding_show_more_instances"), message: nil, preferredStyle: .safeActionSheet)
-        let otherServersAction = UIAlertAction(title: String.localized("instant_onboarding_other_server"), style: .default) { [weak self] _ in
+//        let otherServersAction = UIAlertAction(title: String.localized("instant_onboarding_other_server"), style: .default) { [weak self] _ in
+//
+//            self?.storeImageAndName()
+//
+//            guard let url = URL(string: "https://delta.chat/en/chatmail") else { return }
+//
+//            if UIApplication.shared.canOpenURL(url) {
+//                UIApplication.shared.open(url)
+//            }
+//        }
 
-            self?.storeImageAndName()
-
-            guard let url = URL(string: "https://delta.chat/en/chatmail") else { return }
-
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-            }
-        }
-
-        let manualAccountSetup = UIAlertAction(title: String.localized("manual_account_setup_option"), style: .default) { _ in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-
-                let accountSetupController = AccountSetupController(dcAccounts: self.dcAccounts, editView: false)
-                accountSetupController.onLoginSuccess = {
-                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                        appDelegate.reloadDcContext()
-                    }
-                }
-                self.navigationController?.pushViewController(accountSetupController, animated: true)
-            }
-        }
+//        let manualAccountSetup = UIAlertAction(title: String.localized("manual_account_setup_option"), style: .default) { _ in
+//            DispatchQueue.main.async { [weak self] in
+//                guard let self else { return }
+//
+//                let accountSetupController = AccountSetupController(dcAccounts: self.dcAccounts, editView: false)
+//                accountSetupController.onLoginSuccess = {
+//                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+//                        appDelegate.reloadDcContext()
+//                    }
+//                }
+//                self.navigationController?.pushViewController(accountSetupController, animated: true)
+//            }
+//        }
 
         let scanQRCode = UIAlertAction(title: String.localized("scan_invitation_code"), style: .default) { [weak self] _ in
             DispatchQueue.main.async { [weak self] in
@@ -212,8 +212,8 @@ class InstantOnboardingViewController: UIViewController {
 
         let cancelAction = UIAlertAction(title: String.localized("cancel"), style: .cancel)
 
-        alertController.addAction(otherServersAction)
-        alertController.addAction(manualAccountSetup)
+     //   alertController.addAction(otherServersAction)
+      //  alertController.addAction(manualAccountSetup)
         alertController.addAction(scanQRCode)
         alertController.addAction(cancelAction)
 
@@ -329,7 +329,7 @@ extension InstantOnboardingViewController: QrCodeReaderDelegate {
             self.providerHostURL = url
             self.qrCodeData = qrCode
 
-            contentView?.updateContent(with: host)
+            // contentView?.updateContent(with: host)
             dismissQRReader()
         } else {
             qrErrorAlert()

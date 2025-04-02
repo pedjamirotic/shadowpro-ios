@@ -844,7 +844,7 @@
 "ephemeral_timer_weeks_by_other" = "Disappearing messages timer set to %1$@ weeks by %2$@.";
 // this may be shown instead of the chat's input field, with buttons "More Info" and "OK"
 "chat_protection_broken" = "%1$@ sent a message from another device.";
-"chat_protection_enabled_tap_to_learn_more" = "Messages are guaranteed to be end-to-end encrypted from now on. Tap to learn more.";
+"chat_protection_enabled_tap_to_learn_more" = "Messages are guaranteed to be end-to-end encrypted from now on.";
 "chat_protection_enabled_explanation" = "It is now guaranteed that all messages in this chat are end-to-end encrypted.\n\nEnd-to-end encryption keeps messages private between you and your chat partners. Not even your email provider can read them.";
 "chat_protection_broken_tap_to_learn_more" = "%1$@ sent a message from another device. Tap to learn more.";
 "chat_protection_broken_explanation" = "End-to-end encryption cannot be guaranteed anymore, likely because %1$@ reinstalled Delta Chat or sent a message from another device.\n\nYou may meet them in person and scan their QR code again to reestablish guaranteed end-to-end encryption.";
@@ -953,7 +953,7 @@
 // strings introduced on desktop. we want to share strings between the os, in general, please do not add generic strings here
 "about_offical_app_desktop" = "This is the official Delta Chat Desktop app.";
 "about_licensed_under_desktop" = "This software is licensed under GNU GPL version 3 and the source code is available on GitHub.";
-"welcome_desktop" = "Welcome to Delta Chat";
+"welcome_desktop" = "Welcome to Shadow Pro";
 "global_menu_preferences_language_desktop" = "Language";
 "global_menu_file_desktop" = "File";
 "global_menu_file_quit_desktop" = "Quit";

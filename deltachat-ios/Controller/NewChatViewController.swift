@@ -4,22 +4,21 @@ import DcCore
 
 class NewChatViewController: UITableViewController {
     private let dcContext: DcContext
-
+    
     enum NewOption {
         case scanQRCode
         case newGroup
         case newBroadcastList
         case newContact
     }
-
+    
     private let newOptions: [NewOption]
-
+    
     private let sectionNew = 0
     private let sectionContacts = 1
-    private let sectionInviteFriends = 2
     
-    private let sectionsCount = 3
-
+    private let sectionsCount = 2
+    
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -27,7 +26,7 @@ class NewChatViewController: UITableViewController {
         searchController.searchBar.placeholder = String.localized("search")
         return searchController
     }()
-
+    
     private lazy var emptySearchStateLabel: EmptyStateLabel = {
         let label = EmptyStateLabel()
         label.isHidden = true
@@ -36,63 +35,63 @@ class NewChatViewController: UITableViewController {
         label.paddingBottom = 64
         return label
     }()
-
+    
     private lazy var emptySearchStateLabelWidthConstraint: NSLayoutConstraint? = {
         return emptySearchStateLabel.widthAnchor.constraint(equalTo: tableView.widthAnchor)
     }()
-
+    
     private var contactIds: [Int]
     private var filteredContactIds: [Int] = []
-
+    
     private var searchText: String? {
         return searchController.searchBar.text
     }
-
+    
     // searchBar active?
     var isFiltering: Bool {
         return !searchBarIsEmpty
     }
-
+    
     private var searchBarIsEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
-
+    
     lazy var deviceContactHandler: DeviceContactsHandler = {
         let handler = DeviceContactsHandler(dcContext: dcContext)
         handler.contactListDelegate = self
         return handler
     }()
-
+    
     init(dcContext: DcContext) {
         self.dcContext = dcContext
         self.contactIds = dcContext.getContacts(flags: DC_GCL_ADD_SELF)
-
+        
         var newOptions: [NewOption]
         if UserDefaults.standard.bool(forKey: "broadcast_lists") {
             newOptions = [.scanQRCode, .newGroup, .newBroadcastList]
         } else {
             newOptions = [.scanQRCode, .newGroup]
         }
-
+        
         if self.dcContext.isChatmail == false {
             newOptions.append(.newContact)
         }
         self.newOptions = newOptions
-
+        
         super.init(style: .insetGrouped)
         hidesBottomBarWhenPushed = true
     }
-
+    
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = String.localized("menu_new_chat")
-
+        
         deviceContactHandler.importDeviceContacts()
         navigationItem.searchController = searchController
         definesPresentationContext = true // to make sure searchbar will only be shown in this viewController
@@ -103,51 +102,49 @@ class NewChatViewController: UITableViewController {
         tableView.register(ContactCell.self, forCellReuseIdentifier: ContactCell.reuseIdentifier)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
     }
-
+    
     // MARK: - actions
-
+    
     private func inviteFriends(cell: UITableViewCell) {
         guard let inviteLink = Utils.getInviteLink(context: dcContext, chatId: 0) else { return }
-
+        
         let invitationText = String.localized(stringID: "invite_friends_text", parameter: inviteLink)
         Utils.share(text: invitationText, parentViewController: self, sourceView: cell)
     }
-
+    
     @objc func cancelButtonPressed() {
         dismiss(animated: true, completion: nil)
     }
-
+    
     // MARK: - Table view data source
     override func numberOfSections(in _: UITableView) -> Int {
         return sectionsCount
     }
-
+    
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == sectionNew {
             return newOptions.count
-        } else if section == sectionInviteFriends {
-            return 1
         } else {
             return isFiltering ? filteredContactIds.count : contactIds.count
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section = indexPath.section
-        if section == sectionNew || section == sectionInviteFriends {
+        if section == sectionNew {
             return UITableView.automaticDimension
         } else {
             return ContactCell.cellHeight
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         let row = indexPath.row
         
         if section == sectionNew {
             guard let actionCell = tableView.dequeueReusableCell(withIdentifier: ActionCell.reuseIdentifier, for: indexPath) as? ActionCell else { fatalError("No Action Cell") }
-
+            
             switch newOptions[row] {
             case .scanQRCode:
                 actionCell.imageView?.image = UIImage(systemName: "qrcode")
@@ -162,22 +159,21 @@ class NewChatViewController: UITableViewController {
                 actionCell.imageView?.image = UIImage(systemName: "highlighter")
                 actionCell.actionTitle = String.localized("menu_new_classic_contact")
             }
-
+            
             return actionCell
-        } else if section == sectionInviteFriends {
-            guard let actionCell = tableView.dequeueReusableCell(withIdentifier: ActionCell.reuseIdentifier, for: indexPath) as? ActionCell else { fatalError("No Action Cell") }
+         } else if section == sectionContacts {
+              guard let contactCell = tableView.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier, for: indexPath) as? ContactCell else { fatalError("ContactCell expected") }
 
-            actionCell.imageView?.image = UIImage(systemName: "heart")
-            actionCell.actionTitle = String.localized("invite_friends")
-            return actionCell
+              let contactCellViewModel = self.contactViewModelBy(row: indexPath.row)
+              contactCell.updateCell(cellViewModel: contactCellViewModel)
+              return contactCell
+        
+          } else {
+              // return nothing
+              return UITableViewCell(style: .default, reuseIdentifier: "empty")
 
-        } else {
-            guard let contactCell = tableView.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier, for: indexPath) as? ContactCell else { fatalError("ContactCell expected") }
-
-            let contactCellViewModel = self.contactViewModelBy(row: indexPath.row)
-            contactCell.updateCell(cellViewModel: contactCellViewModel)
-            return contactCell
-        }
+          }
+            
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -204,8 +200,6 @@ class NewChatViewController: UITableViewController {
             } else if newOption == .newContact {
                 showNewContactController()
             }
-        } else if section == sectionInviteFriends, let cell = tableView.cellForRow(at: indexPath) {
-            inviteFriends(cell: cell)
         } else {
             showChatAt(row: row)
         }

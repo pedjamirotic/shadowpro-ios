@@ -225,8 +225,8 @@ class ContactDetailViewController: UITableViewController {
             return statusCell
         case .chatActions:
             switch viewModel.chatActionFor(row: row) {
-            case .archiveChat:
-                return archiveChatCell
+//            case .archiveChat:
+//                return archiveChatCell
             case .showEncrInfo:
                 return showEncrInfoCell
             case .blockContact:
@@ -378,9 +378,9 @@ class ContactDetailViewController: UITableViewController {
     private func handleChatAction(indexPath: IndexPath) {
         let action = viewModel.chatActionFor(row: indexPath.row)
         switch action {
-        case .archiveChat:
-            tableView.deselectRow(at: indexPath, animated: true) // animated as no other elements pop up
-            toggleArchiveChat()
+//        case .archiveChat:
+//            tableView.deselectRow(at: indexPath, animated: true) // animated as no other elements pop up
+//            toggleArchiveChat()
         case .showEncrInfo:
             tableView.deselectRow(at: indexPath, animated: false)
             showEncrInfoAlert()
@@ -423,15 +423,15 @@ class ContactDetailViewController: UITableViewController {
         }
     }
 
-    private func toggleArchiveChat() {
-        let archived = viewModel.toggleArchiveChat()
-        if archived {
-            self.navigationController?.popToRootViewController(animated: false)
-        } else {
-            archiveChatCell.imageView?.image = UIImage(systemName: "tray.and.arrow.down")
-            archiveChatCell.actionTitle = String.localized("menu_archive_chat")
-        }
-    }
+//    private func toggleArchiveChat() {
+//        let archived = viewModel.toggleArchiveChat()
+//        if archived {
+//            self.navigationController?.popToRootViewController(animated: false)
+//        } else {
+//            archiveChatCell.imageView?.image = UIImage(systemName: "tray.and.arrow.down")
+//            archiveChatCell.actionTitle = String.localized("menu_archive_chat")
+//        }
+//    }
 
     private func toggleMuteChat() {
         if viewModel.chatIsMuted {

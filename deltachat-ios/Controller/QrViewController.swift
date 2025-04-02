@@ -10,7 +10,7 @@ class QrViewController: UIViewController {
     private let contentStackView: UIStackView
     private let contentScrollView: UIScrollView
     private let qrContentView: UIImageView
-    private let shareLinkButton: UIButton
+  //  private let shareLinkButton: UIButton
 
     private lazy var moreButton: UIBarButtonItem = {
         let moreButtonImage = UIImage(systemName: "ellipsis.circle")
@@ -39,11 +39,11 @@ class QrViewController: UIViewController {
         qrContentView.contentMode = .scaleAspectFit
         qrContentView.translatesAutoresizingMaskIntoConstraints = false
 
-        shareLinkButton = UIButton(type: .system)
-        shareLinkButton.setTitle(String.localized("share_invite_link"), for: .normal)
-        shareLinkButton.translatesAutoresizingMaskIntoConstraints = false
-
-        contentStackView = UIStackView(arrangedSubviews: [qrContentView, shareLinkButton, UIView()])
+//        shareLinkButton = UIButton(type: .system)
+//        shareLinkButton.setTitle(String.localized("share_invite_link"), for: .normal)
+//        shareLinkButton.translatesAutoresizingMaskIntoConstraints = false
+//
+        contentStackView = UIStackView(arrangedSubviews: [qrContentView, UIView()])
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.axis = .vertical
         contentStackView.alignment = .center
@@ -59,8 +59,8 @@ class QrViewController: UIViewController {
 
         title = String.localized("qrshow_title")
         navigationItem.rightBarButtonItem = moreButton
-        shareLinkButton.addTarget(self, action: #selector(QrViewController.shareInviteLink(_:)), for: .touchUpInside)
-        shareLinkButton.setTitleColor(DcColors.primary, for: .normal)
+//        shareLinkButton.addTarget(self, action: #selector(QrViewController.shareInviteLink(_:)), for: .touchUpInside)
+        // shareLinkButton.setTitleColor(DcColors.primary, for: .normal)
 
         let svg = dcContext.getSecurejoinQrSVG(chatId: chatId)
         qrContentView.image = getQrImage(svg: svg)

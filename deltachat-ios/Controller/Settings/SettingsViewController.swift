@@ -19,13 +19,13 @@ internal final class SettingsViewController: UITableViewController {
     private enum CellTags: Int {
         case profile
         case chatsAndMedia
-        case addAnotherDevice
+     //   case addAnotherDevice
         case notifications
         case selectBackground
         case advanced
-        case help
-        case connectivity
-        case inviteFriends
+     //   case help
+      //  case connectivity
+       // case inviteFriends
     }
 
     private var dcContext: DcContext
@@ -59,15 +59,15 @@ internal final class SettingsViewController: UITableViewController {
         return cell
     }()
 
-    private lazy var addAnotherDeviceCell: UITableViewCell = {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.tag = CellTags.addAnotherDevice.rawValue
-        cell.textLabel?.text = String.localized("multidevice_title")
-        let imageName = if #available(iOS 15, *) { "ipad.and.iphone" } else { "rectangle.on.rectangle" }
-        cell.imageView?.image = UIImage(systemName: imageName)
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }()
+//    private lazy var addAnotherDeviceCell: UITableViewCell = {
+//        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+//        cell.tag = CellTags.addAnotherDevice.rawValue
+//        cell.textLabel?.text = String.localized("multidevice_title")
+//        let imageName = if #available(iOS 15, *) { "ipad.and.iphone" } else { "rectangle.on.rectangle" }
+//        cell.imageView?.image = UIImage(systemName: imageName)
+//        cell.accessoryType = .disclosureIndicator
+//        return cell
+//    }()
 
     private lazy var advancedCell: UITableViewCell = {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
@@ -79,32 +79,32 @@ internal final class SettingsViewController: UITableViewController {
         return cell
     }()
 
-    private lazy var inviteFriendsCell: UITableViewCell = {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.tag = CellTags.inviteFriends.rawValue
-        cell.textLabel?.text = String.localized("invite_friends")
-        cell.imageView?.image = UIImage(systemName: "heart")
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }()
+//    private lazy var inviteFriendsCell: UITableViewCell = {
+//        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+//        cell.tag = CellTags.inviteFriends.rawValue
+//        cell.textLabel?.text = String.localized("invite_friends")
+//        cell.imageView?.image = UIImage(systemName: "heart")
+//        cell.accessoryType = .disclosureIndicator
+//        return cell
+//    }()
 
-    private lazy var helpCell: UITableViewCell = {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.tag = CellTags.help.rawValue
-        cell.textLabel?.text = String.localized("menu_help")
-        cell.imageView?.image = UIImage(systemName: "questionmark.circle")
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }()
+//    private lazy var helpCell: UITableViewCell = {
+//        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+//        cell.tag = CellTags.help.rawValue
+//        cell.textLabel?.text = String.localized("menu_help")
+//        cell.imageView?.image = UIImage(systemName: "questionmark.circle")
+//        cell.accessoryType = .disclosureIndicator
+//        return cell
+//    }()
 
-    private lazy var connectivityCell: UITableViewCell = {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.tag = CellTags.connectivity.rawValue
-        cell.textLabel?.text = String.localized("connectivity")
-        cell.imageView?.image = UIImage(systemName: "arrow.up.arrow.down")
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }()
+//    private lazy var connectivityCell: UITableViewCell = {
+//        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+//        cell.tag = CellTags.connectivity.rawValue
+//        cell.textLabel?.text = String.localized("connectivity")
+//        cell.imageView?.image = UIImage(systemName: "arrow.up.arrow.down")
+//        cell.accessoryType = .disclosureIndicator
+//        return cell
+//    }()
 
     private lazy var selectBackgroundCell: UITableViewCell = {
         let cell = UITableViewCell()
@@ -116,7 +116,7 @@ internal final class SettingsViewController: UITableViewController {
     }()
 
     private lazy var sections: [SectionConfigs] = {
-        var appNameAndVersion = "Delta Chat"
+        var appNameAndVersion = "Shadow Pro"
         if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             appNameAndVersion += " v" + appVersion
         }
@@ -125,15 +125,15 @@ internal final class SettingsViewController: UITableViewController {
             cells: [self.profileCell]
         )
         let preferencesSection = SectionConfigs(
-            cells: [self.chatsAndMediaCell, self.notificationCell, self.selectBackgroundCell, self.addAnotherDeviceCell, self.connectivityCell, self.advancedCell]
+            cells: [self.chatsAndMediaCell, self.notificationCell, self.selectBackgroundCell, self.advancedCell]
         )
-        let inviteFriendsSection = SectionConfigs(cells: [self.inviteFriendsCell])
-        let helpSection = SectionConfigs(
-            footerTitle: appNameAndVersion,
-            cells: [self.helpCell]
-        )
+//        let inviteFriendsSection = SectionConfigs(cells: [self.inviteFriendsCell])
+//        let helpSection = SectionConfigs(
+//            footerTitle: appNameAndVersion,
+//            cells: [self.helpCell]
+//        )
 
-        return [profileSection, preferencesSection, inviteFriendsSection, helpSection]
+        return [profileSection, preferencesSection]
     }()
 
     init(dcAccounts: DcAccounts) {
@@ -143,7 +143,7 @@ internal final class SettingsViewController: UITableViewController {
 
         // set connectivity changed observer before we acutally init `connectivityCell.detailTextLabel` in `updateCells()`,
         // otherwise, we may miss events and the label is not correct.
-        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.handleConnectivityChanged(_:)), name: Event.connectivityChanged, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.handleConnectivityChanged(_:)), name: Event.connectivityChanged, object: nil)
     }
 
     required init?(coder _: NSCoder) {
@@ -157,12 +157,12 @@ internal final class SettingsViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-
-        updateCells()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//
+//             updateCells()
+//    }
 
     // MARK: - UITableViewDelegate + UITableViewDatasource
 
@@ -197,13 +197,13 @@ internal final class SettingsViewController: UITableViewController {
         switch cellTag {
         case .profile: showEditSettingsController()
         case .chatsAndMedia: showChatsAndMedia()
-        case .addAnotherDevice: showBackupProviderViewController()
+      //  case .addAnotherDevice: showBackupProviderViewController()
         case .notifications: showNotificationsViewController()
         case .advanced: showAdvanced()
-        case .help: showHelp()
-        case .connectivity: showConnectivity()
+      //  case .help: showHelp()
+      //  case .connectivity: showConnectivity()
         case .selectBackground: selectBackground()
-        case .inviteFriends: inviteFriends()
+      //  case .inviteFriends: inviteFriends()
         }
     }
 
@@ -217,24 +217,24 @@ internal final class SettingsViewController: UITableViewController {
 
     // MARK: - Notifications
 
-    @objc private func handleConnectivityChanged(_ notification: Notification) {
-        guard dcContext.id == notification.userInfo?["account_id"] as? Int else { return }
-
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-
-            self.connectivityCell.detailTextLabel?.text = DcUtils.getConnectivityString(dcContext: self.dcContext,
-                                                                                   connectedString: String.localized("connectivity_connected"))
-        }
-    }
+//    @objc private func handleConnectivityChanged(_ notification: Notification) {
+//        guard dcContext.id == notification.userInfo?["account_id"] as? Int else { return }
+//
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self else { return }
+//
+//            self.connectivityCell.detailTextLabel?.text = DcUtils.getConnectivityString(dcContext: self.dcContext,
+//                                                                                   connectedString: String.localized("connectivity_connected"))
+//        }
+//    }
 
     // MARK: - updates
-    private func updateCells() {
-        profileCell.updateCell(cellViewModel: ProfileViewModel(context: dcContext))
-        connectivityCell.detailTextLabel?.text = DcUtils.getConnectivityString(dcContext: dcContext,
-                                                                               connectedString: String.localized("connectivity_connected"))
-        notificationCell.detailTextLabel?.text = String.localized(dcContext.isMuted() ? "off" : "on")
-    }
+//    private func updateCells() {
+//        profileCell.updateCell(cellViewModel: ProfileViewModel(context: dcContext))
+//        connectivityCell.detailTextLabel?.text = DcUtils.getConnectivityString(dcContext: dcContext,
+//                                                                               connectedString: String.localized("connectivity_connected"))
+//        notificationCell.detailTextLabel?.text = String.localized(dcContext.isMuted() ? "off" : "on")
+//    }
 
     // MARK: - coordinator
     private func showEditSettingsController() {
@@ -282,10 +282,10 @@ internal final class SettingsViewController: UITableViewController {
         navigationController?.pushViewController(BackgroundOptionsViewController(dcContext: dcContext), animated: true)
     }
 
-    private func inviteFriends() {
-        guard let inviteLink = Utils.getInviteLink(context: dcContext, chatId: 0) else { return }
-
-        let invitationText = String.localized(stringID: "invite_friends_text", parameter: inviteLink)
-        Utils.share(text: invitationText, parentViewController: self, sourceView: inviteFriendsCell)
-    }
+//    private func inviteFriends() {
+//        guard let inviteLink = Utils.getInviteLink(context: dcContext, chatId: 0) else { return }
+//
+//        let invitationText = String.localized(stringID: "invite_friends_text", parameter: inviteLink)
+//        Utils.share(text: invitationText, parentViewController: self, sourceView: inviteFriendsCell)
+//    }
 }

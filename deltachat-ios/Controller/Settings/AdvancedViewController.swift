@@ -207,10 +207,10 @@ internal final class AdvancedViewController: UITableViewController {
             headerTitle: nil,
             footerTitle: String.localized("enable_realtime_explain"),
             cells: [viewLogCell, showEmailsCell, realtimeChannelsCell])
-        let experimentalSection = SectionConfigs(
-            headerTitle: String.localized("pref_experimental_features"),
-            footerTitle: nil,
-            cells: [videoChatInstanceCell, broadcastListsCell, locationStreamingCell])
+//        let experimentalSection = SectionConfigs(
+//            headerTitle: String.localized("pref_experimental_features"),
+//            footerTitle: nil,
+//            cells: [videoChatInstanceCell, broadcastListsCell, locationStreamingCell])
 
         if dcContext.isChatmail {
             let encryptionSection = SectionConfigs(
@@ -221,7 +221,7 @@ internal final class AdvancedViewController: UITableViewController {
                 headerTitle: String.localized("pref_server"),
                 footerTitle: nil,
                 cells: [accountSettingsCell, proxySettingsCell])
-            return [viewLogSection, experimentalSection, encryptionSection, serverSection]
+            return [viewLogSection, encryptionSection, serverSection]
         } else {
             let appAccessSection = SectionConfigs(
                 headerTitle: String.localized("pref_app_access"),
@@ -235,7 +235,7 @@ internal final class AdvancedViewController: UITableViewController {
                 headerTitle: String.localized("pref_server"),
                 footerTitle: String.localized("pref_only_fetch_mvbox_explain"),
                 cells: [accountSettingsCell, sentboxWatchCell, sendCopyToSelfCell, mvboxMoveCell, onlyFetchMvboxCell, proxySettingsCell])
-            return [viewLogSection, experimentalSection, appAccessSection, encryptionSection, serverSection]
+            return [viewLogSection, appAccessSection, encryptionSection, serverSection]
         }
     }()
 

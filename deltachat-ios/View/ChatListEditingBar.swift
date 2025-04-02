@@ -14,8 +14,8 @@ class ChatListEditingBar: UIView {
         didSet {
             guard let showArchive = showArchive else { return }
             let imageName = showArchive ? "tray.and.arrow.down" : "tray.and.arrow.up"
-            let description = showArchive ? String.localized("archive") : String.localized("unarchive")
-            configureButtonLayout(archiveButton, imageName: imageName, imageDescription: description, showImageAndText: true)
+//            let description = showArchive ? String.localized("archive") : String.localized("unarchive")
+//            configureButtonLayout(archiveButton, imageName: imageName, imageDescription: description, showImageAndText: true)
         }
     }
 
@@ -26,7 +26,7 @@ class ChatListEditingBar: UIView {
     }()
 
     private lazy var mainContentView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [archiveButton, UIView(), deleteButton, moreButton])
+        let view = UIStackView(arrangedSubviews: [ UIView(), deleteButton, moreButton])
         view.axis = .horizontal
         view.distribution = .fill
         view.alignment = .fill
@@ -38,9 +38,9 @@ class ChatListEditingBar: UIView {
         return createUIButton(imageName: "trash", imageDescription: String.localized("delete"), tintColor: .systemRed)
     }()
 
-    private lazy var archiveButton: UIButton = {
-        return createUIButton(imageName: "tray.and.arrow.down", imageDescription: String.localized("archive"))
-    }()
+//    private lazy var archiveButton: UIButton = {
+//        return createUIButton(imageName: "tray.and.arrow.down", imageDescription: String.localized("archive"))
+//    }()
 
     private lazy var moreButton: UIButton = {
         return createUIButton(imageName: "ellipsis.circle", imageDescription: String.localized("menu_more_options"))
@@ -92,7 +92,7 @@ class ChatListEditingBar: UIView {
 
         let archiveBtnGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(archiveButtonPressed))
         archiveBtnGestureRecognizer.numberOfTapsRequired = 1
-        archiveButton.addGestureRecognizer(archiveBtnGestureRecognizer)
+       // archiveButton.addGestureRecognizer(archiveBtnGestureRecognizer)
 
         moreButton.showsMenuAsPrimaryAction = true
         moreButton.menu = UIMenu() // otherwise .menuActionTriggered is not triggered

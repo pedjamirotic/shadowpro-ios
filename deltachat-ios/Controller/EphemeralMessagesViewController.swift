@@ -102,12 +102,12 @@ class EphemeralMessagesViewController: UITableViewController {
         return options.count
     }
 
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if !dcContext.getChat(chatId: chatId).isSelfTalk { // the hint refers to "all member of the chat", this is weird for "Saved Messages"
-            return String.localized("ephemeral_messages_hint")
-        }
-        return nil
-    }
+//    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+//        if !dcContext.getChat(chatId: chatId).isSelfTalk { // the hint refers to "all member of the chat", this is weird for "Saved Messages"
+//            return String.localized("ephemeral_messages_hint")
+//        }
+//        return nil
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true) // animated as no other elements pop up

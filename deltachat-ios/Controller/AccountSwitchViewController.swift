@@ -16,12 +16,12 @@ class AccountSwitchViewController: UITableViewController {
         return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAction))
     }()
 
-    private lazy var addAccountCell: ActionCell = {
-        let cell = ActionCell()
-        cell.actionTitle = String.localized("add_account")
-        cell.imageView?.image = UIImage(systemName: "plus")
-        return cell
-    }()
+//    private lazy var addAccountCell: ActionCell = {
+//        let cell = ActionCell()
+//        cell.actionTitle = String.localized("add_account")
+//        cell.imageView?.image = UIImage(systemName: "plus")
+//        return cell
+//    }()
 
     init(dcAccounts: DcAccounts) {
         self.dcAccounts = dcAccounts
@@ -62,21 +62,25 @@ class AccountSwitchViewController: UITableViewController {
         if section == accountSection {
             return accountIds.count
         }
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == accountSection {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountCell.reuseIdentifier, for: indexPath) as? AccountCell else {
-                fatalError("No AccountCell")
-            }
-
-            let selectedAccountId = dcAccounts.getSelected().id
-            cell.updateCell(selectedAccount: selectedAccountId,
-                            dcContext: dcAccounts.get(id: accountIds[indexPath.row]))
-            return cell
+        guard indexPath.section == accountSection else {
+            // Return an empty cell or handle other sections if needed
+            return UITableViewCell()
         }
-        return addAccountCell
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountCell.reuseIdentifier, for: indexPath) as? AccountCell else {
+            fatalError("No AccountCell")
+        }
+
+        let selectedAccountId = dcAccounts.getSelected().id
+        cell.updateCell(
+            selectedAccount: selectedAccountId,
+            dcContext: dcAccounts.get(id: accountIds[indexPath.row])
+        )
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
